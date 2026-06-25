@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>李安琪 | Li Anqi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       🎨 CSS Variables — tweak here
+       ============================================================ */
+    :root {
+      --bg:         #FBF8F5;
+      --bg-warm:    #F7F0EA;
+      --white:      #FFFFFF;
+      --text:       #3D3640;
+      --text-light: #7A7280;
+      --text-muted: #B0A8B8;
+      --accent:     #D48C8C;
+      --accent-soft:#E8C4C4;
+      --accent-pale:#F2E0E0;
+      --blush:      #F5E6E0;
+      --warm-brown: #C4A898;
+      --warm-light: #E8DCCE;
+      --green-soft: #C8D8C8;
+      --blue-soft:  #C0D4E0;
+
+      --font-display: 'DM Serif Display', 'Noto Serif SC', serif;
+      --font-heavy:   'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+      --font-body:    'Inter', 'Noto Sans SC', sans-serif;
+      --font-mono:    'Space Mono', monospace;
+      --container:    1000px;
+    }
+
+    /* ============================================================
+       Reset
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--accent-soft); color: var(--text); }
+
+    /* ============================================================
+       Nav
+       ============================================================ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 40px;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(251,248,245,0.88);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 rgba(61,54,64,0.06);
+    }
+    .nav-inner {
+      max-width: var(--container); margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--accent);
+    }
+    .nav-links { display: flex; gap: 2px; list-style: none; }
+    .nav-links a {
+      display: block; padding: 6px 18px;
+      border-radius: 100px;
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--text-light);
+      transition: background 0.25s, color 0.25s;
+    }
+    .nav-links a:hover { background: var(--accent-pale); color: var(--text); }
+    .nav-links a.active { background: var(--accent-soft); color: var(--text); }
+
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 4px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span { width: 22px; height: 2px; background: var(--text); border-radius: 4px; transition: 0.3s; }
+
+    /* ============================================================
+       Common
+       ============================================================ */
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 36px; }
+    section { padding: 100px 0; position: relative; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.6rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+    .section-title em { color: var(--accent); font-style: italic; }
+
+    /* ============================================================
+       Hero
+       ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 120px 36px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Warm gradient background */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(212,140,140,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(200,216,200,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* —— 泡泡特效 —— */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform, opacity;
+      z-index: 0;
+    }
+    .bubble-1 {
+      width: 320px; height: 320px;
+      background: radial-gradient(circle at 30% 30%, rgba(212,140,140,0.20), rgba(200,216,200,0.08) 70%);
+      top: -5%; left: -8%;
+      animation: bubbleFloat 18s ease-in-out infinite;
+    }
+    .bubble-2 {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle at 70% 30%, rgba(200,216,200,0.22), rgba(192,212,224,0.08) 70%);
+      bottom: 10%; right: -4%;
+      animation: bubbleFloat 22s ease-in-out infinite reverse;
+    }
+    .bubble-3 {
+      width: 150px; height: 150px;
+      background: radial-gradient(circle at 40% 60%, rgba(232,196,196,0.25), rgba(245,230,224,0.06) 70%);
+      top: 55%; left: 60%;
+      animation: bubbleFloat 15s ease-in-out infinite 3s;
+    }
+    .bubble-4 {
+      width: 100px; height: 100px;
+      background: radial-gradient(circle at 50% 50%, rgba(192,212,224,0.20), transparent 70%);
+      top: 20%; right: 20%;
+      animation: bubbleFloat 12s ease-in-out infinite 1s;
+    }
+    .bubble-5 {
+      width: 260px; height: 260px;
+      background: radial-gradient(circle at 60% 70%, rgba(212,140,140,0.12), rgba(200,216,200,0.06) 70%);
+      bottom: -5%; left: 30%;
+      animation: bubbleFloat 20s ease-in-out infinite 2s;
+    }
+    .bubble-6 {
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at 30% 40%, rgba(232,196,196,0.20), transparent 60%);
+      top: 10%; left: 35%;
+      animation: bubbleFloat 10s ease-in-out infinite 4s;
+    }
+    @keyframes bubbleFloat {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      25% { transform: translate(20px,-30px) scale(1.06); }
+      50% { transform: translate(-15px,15px) scale(0.96); }
+      75% { transform: translate(25px,20px) scale(1.02); }
+    }
+
+    .hero-content { text-align: center; position: relative; z-index: 1; max-width: 720px; }
+
+    .hero-name {
+      font-family: var(--font-heavy);
+      font-size: clamp(4rem, 14vw, 8rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+    .hero-greeting {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero-name .gradient-text {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--warm-brown) 60%, var(--green-soft) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-badge {
+      display: inline-flex; gap: 20px;
+      padding: 8px 24px;
+      border-radius: 100px;
+      background: var(--white);
+      box-shadow: 0 2px 12px rgba(61,54,64,0.04);
+      font-size: 0.85rem;
+      color: var(--text-light);
+      flex-wrap: wrap; justify-content: center;
+    }
+    .tooltip-trigger { position: relative; cursor: help; }
+    .tooltip-trigger .tooltip-box {
+      position: absolute;
+      bottom: calc(100% + 10px); left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: var(--text); color: var(--bg);
+      font-size: 0.75rem; line-height: 1.6;
+      padding: 10px 16px;
+      border-radius: 10px;
+      white-space: nowrap;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 10;
+      font-family: var(--font-body);
+    }
+    .tooltip-trigger .tooltip-box::after {
+      content: '';
+      position: absolute; top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--text);
+    }
+    .tooltip-trigger:hover .tooltip-box { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    .scroll-hint {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      animation: floatDown 2.2s ease-in-out infinite;
+    }
+    @keyframes floatDown { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+    /* ============================================================
+       About — simple split
+       ============================================================ */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-text p {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 18px;
+      line-height: 1.9;
+    }
+    .about-text .hl { color: var(--accent); font-weight: 600; display: block; margin-bottom: 4px; }
+
+    /* —— 照片区 —— */
+    .about-photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      min-height: 300px;
+    }
+    .photo-frame {
+      width: 100%;
+      max-width: 340px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(61,54,64,0.06);
+      transition: box-shadow 0.3s;
+      position: relative;
+    }
+    .photo-frame:hover {
+      box-shadow: 0 8px 32px rgba(61,54,64,0.10);
+    }
+    .photo-protect {
+      position: relative;
+      width: 100%;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+    .photo-protect img {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-drag: none;
+      -webkit-touch-callout: none;
+    }
+    /* 不可见的保护层 — 阻止右键/长按保存 */
+    .photo-protect::after {
+      content: '';
+      position: absolute; inset: -1px;
+      background: transparent;
+      z-index: 2;
+      touch-action: none;
+    }
+
+       /* ============================================================
+       📂 Folder System — tabs in a row
+      background: var(--bg);
+      position: relative;
+    }
+    #folders::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 40%, rgba(212,140,140,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 60%, rgba(200,216,200,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .folder-container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* —— Tab bar: one row —— */
+    .folder-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: -1px;
+      position: relative;
+      z-index: 3;
+    }
+    .folder-tab {
+      padding: 10px 28px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      background: var(--bg-warm);
+      border: none;
+      border-radius: 12px 12px 0 0;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      position: relative;
+      user-select: none;
+    }
+    .folder-tab:hover {
+      color: var(--text);
+      background: var(--accent-pale);
+    }
+    .folder-tab.active {
+      color: var(--text);
+      background: var(--white);
+      box-shadow: 0 -2px 8px rgba(61,54,64,0.04);
+    }
+    .folder-tab .tab-count {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-left: 6px;
+    }
+
+    /* —— Tab content panel —— */
+    .folder-panels {
+      background: var(--white);
+      border-radius: 0 16px 16px 16px;
+      box-shadow: 0 4px 24px rgba(61,54,64,0.04);
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+    .folder-panel {
+      display: none;
+      padding: 36px 40px 40px;
+      animation: fadeSlideIn 0.4s ease;
+    }
+    .folder-panel.active { display: block; }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .folder-panel-header {
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(61,54,64,0.06);
+      margin-bottom: 20px;
+    }
+    .folder-panel-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+    .folder-panel-header .meta {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+    .folder-panel-header .meta .sep { margin: 0 8px; color: var(--text-muted); }
+
+    .folder-content { margin-bottom: 20px; }
+    .folder-content .cat-label {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 12px 0 6px;
+    }
+    .folder-content ul { list-style: none; padding: 0; }
+    .folder-content li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .folder-content li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--accent-soft);
+      font-size: 0.8rem;
+    }
+
+    .folder-skills {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: var(--bg);
+      border-radius: 10px;
+      display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap;
+    }
+    .folder-skills-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+      padding-top: 4px;
+    }
+    .folder-skills-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .folder-skills-tags span {
+      display: inline-block;
+      padding: 3px 14px;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      background: var(--white);
+      border: 1px solid rgba(61,54,64,0.08);
+      color: var(--text);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .folder-skills-tags span:hover {
+      background: var(--accent-pale);
+      border-color: var(--accent-soft);
+    }
+
+    /* ============================================================
+       Projects — simple cards
+       ============================================================ */
+    #projects { background: var(--white); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 28px 24px;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(61,54,64,0.04);
+    }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+    .project-tag {
+      padding: 2px 10px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      background: var(--accent-pale);
+      color: var(--accent);
+    }
+    .project-tag.g { background: var(--green-soft); color: var(--text); }
+    .project-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .project-card p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       Contact
+       ============================================================ */
+    #contact { background: var(--bg); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+    }
+    .contact-list { display: flex; flex-direction: column; gap: 12px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .contact-item:hover { transform: translateX(4px); box-shadow: 0 4px 12px rgba(61,54,64,0.04); }
+    .contact-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--accent-pale); flex-shrink: 0;
+    }
+    .contact-icon.g { background: var(--green-soft); }
+    .contact-icon.b { background: var(--blue-soft); }
+    .contact-clabel {
+      font-family: var(--font-mono);
+      font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .contact-cvalue { font-size: 0.9rem; color: var(--text); }
+    .contact-note {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .contact-note p {
+      font-size: 0.9rem; color: var(--text-light);
+      line-height: 1.9; margin-bottom: 12px;
+    }
+    .contact-note .thanks {
+      font-family: var(--font-display);
+      font-style: italic;
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin-top: 8px;
+    }
+
+    footer {
+      text-align: center; padding: 40px 36px;
+      font-size: 0.75rem; color: var(--text-muted);
+      background: var(--white);
+    }
+
+    /* —— Copy toast —— */
+    .copy-toast {
+      position: fixed;
+      bottom: 40px; left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--text);
+      color: var(--bg);
+      font-size: 0.8rem;
+      padding: 10px 24px;
+      border-radius: 100px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 9999;
+    }
+    .copy-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ============================================================
+       Sparkle
+       ============================================================ */
+    .sparkle {
+      position: fixed; pointer-events: none; z-index: 9998;
+      font-size: 0.7rem;
+      animation: sparkleFly 0.8s ease-out forwards;
+    }
+    @keyframes sparkleFly {
+      0% { opacity:1; transform: translate(0,0) scale(1) rotate(0deg); }
+      100% { opacity:0; transform: translate(var(--tx),var(--ty)) scale(0) rotate(360deg); }
+    }
+
+    /* ============================================================
+       Reveal
+       ============================================================ */
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1),
+                  transform 0.7s cubic-bezier(0.23,1,0.32,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       Responsive
+       ============================================================ */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(251,248,245,0.95); backdrop-filter: blur(16px);
+        padding: 16px 24px; gap: 4px;
+      }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 2rem; }
+      #hero { min-height: 80vh; padding: 100px 24px 60px; }
+      .container { padding: 0 24px; }
+      section { padding: 72px 0; }
+      nav { padding: 14px 24px; }
+      .folder-tab { padding: 8px 16px; font-size: 0.7rem; }
+      .folder-panel { padding: 24px 20px 28px; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-badge { flex-direction: column; gap: 8px; align-items: center; }
+      .folder-tabs { flex-direction: column; gap: 2px; }
+      .folder-tab { border-radius: 8px; text-align: center; }
+      .folder-panels { border-radius: 12px; }
+      .folder-tab.active { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">Li, Anqi</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#folders">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section id="hero">
+    <!-- 泡泡 (左前) -->
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+    <div class="bubble bubble-5"></div>
+    <div class="bubble bubble-6"></div>
+    <div class="hero-content">
+      <div class="hero-greeting">✦ Product Marketing · AI PM</div>
+      <h1 class="hero-name">
+        <span class="gradient-text">李安琪</span>
+      </h1>
+      <div class="hero-badge">
+        <span class="tooltip-trigger">
+          📍 南京
+          <span class="tooltip-box">对于 base 地的选择可以商量</span>
+        </span>
+        <span class="tooltip-trigger">
+          🌏 中文·한국어·English
+          <span class="tooltip-box">韩语 TOPIK 6 级 · 英语雅思 7.5<br/>中韩英三语均能作为工作语言熟练使用</span>
+        </span>
+        <span class="tooltip-trigger">
+          🎓 南京大学 · 首尔大学
+          <span class="tooltip-box">南京大学 · 朝鲜语（辅修新传）<br/>首尔大学 · Communication（交换）</span>
+        </span>
+      </div>
+      </div>
+    </div>
+    <div class="scroll-hint">✦ scroll ✦</div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT
+       ============================================================ -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Hi, I'm <em>Li Anqi</em>.</h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p><span class="hl">📱 从业背景</span> 拥有三星、希音、小米生态链等头部科技企业服务背景，覆盖消费电子、跨境电商、智能硬件三大赛道，沉淀从亚太本土运营到全球化产品营销的多维经验。</p>
+          <p><span class="hl">📈 营销运营</span>深耕海外社媒与 KOL 多渠道运营及产品功能 GTM 全流程策划，独立从 0 到 1 搭建内部 Newsletter 宣传矩阵；以社区共鸣传播 + 一线业务赋能为抓手，有效拉动产品曝光与转化增长。</p>
+          <p><span class="hl">🤖 产品管理</span> 具备独立负责 AI 功能全生命周期管理经验，融合 VOC 收集、竞品对标与数据复盘，推动使用率与满意度持续提升。</p>
+          <p><span class="hl">💡 个人特质</span> 中韩英三语流利，思维灵活、善于跨部门协作，对结果高度负责。</p>
+        </div>
+        <div class="about-photo reveal">
+          <div class="photo-frame">
+            <div class="photo-protect">
+              <img src="assets/photo.jpg" alt="李安琪" class="profile-photo" draggable="false" oncontextmenu="return false;">
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOLDERS — Experience & Skills
+       ============================================================ -->
+  <section id="folders">
+    <div class="container">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">Where I've <em>worked</em>.</h2>
+
+      <div class="folder-container reveal">
+        <!-- Tab bar -->
+        <div class="folder-tabs" role="tablist">
+          <button class="folder-tab active" role="tab" data-panel="panel-samsung">SAMSUNG <span class="tab-count">01</span></button>
+          <button class="folder-tab" role="tab" data-panel="panel-cuktech">CUKTECH <span class="tab-count">02</span></button>
+          <button class="folder-tab" role="tab" data-panel="panel-shein">SHEIN <span class="tab-count">03</span></button>
+        </div>
+
+        <!-- Panels -->
+        <div class="folder-panels">
+
+          <!-- Samsung -->
+          <div class="folder-panel active" id="panel-samsung" role="tabpanel">
+            <div class="folder-panel-header">
+              <h3>三星（中国）投资有限公司</h3>
+              <div class="meta">产品营销 <span class="sep">·</span> 2025.07 — 至今</div>
+            </div>
+            <div class="folder-content">
+              <span class="cat-label">📣 营销运营</span>
+              <ul>
+                <li><strong>上市策划：</strong>整合总部策略与竞品对标，主导 W26 / S26 / A57 等机型软件功能 GTM 计划制定，上市节点 100% 达成。</li>
+                <li><strong>内容造势：</strong>从 0 到 1 搭建社内 Newsletter 体系，独立设计模板与制作策略，打通跨部门信息协同链路。</li>
+                <li><strong>社区共振：</strong>负责 Flip7 / Fold7 / S26 三星内部社区运营，输出超高质量文案，提升产品口碑与传播度。</li>
+                <li><strong>赋能一线：</strong>搭建产品功能培训体系，主讲 3 场 GoodLock 培训会，覆盖超 200 名前线员工，考核通过率提升超 40%。</li>
+              </ul>
+              <span class="cat-label">🤖 产品管理</span>
+              <ul>
+                <li><strong>竞品对标：</strong>主导 GoodLock 全功能、智能文案帮写等竞品分析，输出完整报告与优化方案。</li>
+                <li><strong>AI 功能策划运营：</strong>独立负责「智能文案帮写」全流程，用户满意度超 90%。</li>
+                <li><strong>工具提效：</strong>推动 AI 工具合规落地，调研与方案输出周期缩短超 30%，效率提升超 40%。</li>
+              </ul>
+            </div>
+            <div class="folder-skills">
+              <span class="folder-skills-label">core skills</span>
+              <div class="folder-skills-tags">
+                <span>GTM 全流程策划</span>
+                <span>竞品分析</span>
+                <span>AI 功能全生命周期</span>
+                <span>内容营销</span>
+                <span>社区运营</span>
+                <span>FRD 撰写</span>
+                <span>培训赋能</span>
+                <span>AI 工具落地</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CUKTECH -->
+          <div class="folder-panel" id="panel-cuktech" role="tabpanel">
+            <div class="folder-panel-header">
+              <h3>南京酷科电子科技有限公司</h3>
+              <div class="meta">韩国市场运营（实习）<span class="sep">·</span> 2024.11 — 2025.05</div>
+            </div>
+            <div class="folder-content">
+              <ul>
+                <li><strong>社群裂变：</strong>策划韩国 Ins 账号，从 0 到 1 建设 Facebook 和 Kakao 社群，Ins 三个月涨粉 500+。</li>
+                <li><strong>爆款打造：</strong>打造 YouTube 和 TikTok 爆款视频，当周转化率提升超 100%，吸引知名 agency 主动合作。</li>
+                <li><strong>运营支持：</strong>负责充电宝产品 brief 和详情页韩文校对，确保本地化内容准确传达。</li>
+              </ul>
+            </div>
+            <div class="folder-skills">
+              <span class="folder-skills-label">core skills</span>
+              <div class="folder-skills-tags">
+                <span>社媒运营</span>
+                <span>KOL 营销</span>
+                <span>社群裂变</span>
+                <span>本地化内容</span>
+                <span>品牌策略</span>
+                <span>한국어 运营</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SHEIN -->
+          <div class="folder-panel" id="panel-shein" role="tabpanel">
+            <div class="folder-panel-header">
+              <h3>南京希音电子商务有限公司</h3>
+              <div class="meta">频道运营（实习）<span class="sep">·</span> 2024.01 — 2024.04</div>
+            </div>
+            <div class="folder-content">
+              <ul>
+                <li><strong>活动策划：</strong>策划复工季等主题营销活动，覆盖西葡英等多语言，板块点击率提升超 20%，销量环比增长超 50%。</li>
+                <li><strong>数据分析：</strong>监控本土购物平台，AB 测试归因及竞品分析，提升留存与复购率。</li>
+              </ul>
+            </div>
+            <div class="folder-skills">
+              <span class="folder-skills-label">core skills</span>
+              <div class="folder-skills-tags">
+                <span>活动策划</span>
+                <span>数据分析</span>
+                <span>AB 测试</span>
+                <span>用户研究</span>
+                <span>多语言运营</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECTS
+       ============================================================ -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">Things I've <em>built</em>.</h2>
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-tags"><span class="project-tag">AI产品</span><span class="project-tag g">产品策划</span><span class="project-tag">产品管理</span><span class="project-tag g">用户反馈</span><span class="project-tag">数据分析</span></div>
+          <h3>智能文案帮写 AI 功能</h3>
+          <p>独立负责 AI 功能全流程：VOC 收集 → 竞品对标 → FRD 撰写 → 研发对接 → 数据复盘。用户满意度超 90%，团队分析周期缩短超 30%。</p>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-tags"><span class="project-tag">竞品分析</span><span class="project-tag g">部门培训</span><span class="project-tag">产品营销赋能</span></div>
+          <h3>GoodLock 全功能体验优化</h3>
+          <p>主导 GoodLock 全线功能及头部竞品对标，完成功能差异分析与体验优化方案，为产品竞争力提升提供决策支撑。</p>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-tags"><span class="project-tag">内容体系</span><span class="project-tag g">0→1 搭建</span><span class="project-tag">独立设计</span><span class="project-tag g">产品营销策略</span></div>
+          <h3>社内 Newsletter 内容体系</h3>
+          <p>从 0 到 1 搭建三星内部 Newsletter 体系，独立设计模板与制作策略，以高频内容同步产品动态，打通跨部门信息协同。</p>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-tags"><span class="project-tag">海外社媒运营</span><span class="project-tag g">私域社群运营</span><span class="project-tag">海外市场运营</span></div>
+          <h3>韩国本地社群 0→1</h3>
+          <p>策划韩国 Ins 内容 + 建设 Facebook / Kakao 社群，三个月涨粉 500+，打造爆款视频，转化率提升超 100%。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+       ============================================================ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title">Let's <em>connect</em>.</h2>
+      <div class="contact-grid">
+        <div class="contact-list reveal">
+          <a href="tel:13072568876" class="contact-item" data-copy="130 7256 8876">
+            <div class="contact-icon">📞</div>
+            <div><div class="contact-clabel">Phone</div><div class="contact-cvalue">130 7256 8876</div></div>
+          </a>
+          <a href="mailto:569251075@qq.com" class="contact-item" data-copy="569251075@qq.com">
+            <div class="contact-icon g">✉️</div>
+            <div><div class="contact-clabel">Email</div><div class="contact-cvalue">569251075@qq.com</div></div>
+          </a>
+          <div class="contact-item">
+            <div class="contact-icon b">📍</div>
+            <div><div class="contact-clabel">Location</div><div class="contact-cvalue">南京</div></div>
+          </div>
+        </div>
+        <div class="contact-note reveal">
+          <p>📬 如果对我的经历或项目感兴趣，欢迎随时联系我！</p>
+          <p>无论是工作机会、项目合作，还是只是聊聊产品与市场，我都很乐意交流。</p>
+          <p>한국어와 영어로도 자유롭게 연락 주세요.<br/>Feel free to reach out in Korean or English as well.</p>
+          <div class="thanks">✨ Thanks for stopping by ✨</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Copy toast -->
+  <div class="copy-toast" id="copyToast">✓ 已复制到剪贴板</div>
+
+  <footer>
+    <p style="letter-spacing:4px;">✦ ♡ ✦</p>
+    <p style="margin-top:8px;">© 2026 李安琪</p>
+  </footer>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ============================================================
+      //  Folder tabs — 自动轮播 5s，点击后暂停
+      // ============================================================
+      (function() {
+        const tabs = document.querySelectorAll('.folder-tab');
+        const panels = {
+          'panel-samsung': document.getElementById('panel-samsung'),
+          'panel-cuktech': document.getElementById('panel-cuktech'),
+          'panel-shein':   document.getElementById('panel-shein'),
+        };
+        const tabIds = ['panel-samsung', 'panel-cuktech', 'panel-shein'];
+        let currentIndex = 0;
+        let autoTimer = null;
+        let userInteracted = false;
+
+        function activateTab(index) {
+          const id = tabIds[index];
+          tabs.forEach(t => t.classList.remove('active'));
+          Object.values(panels).forEach(p => { if (p) p.classList.remove('active'); });
+          tabs[index].classList.add('active');
+          const target = panels[id];
+          if (target) target.classList.add('active');
+        }
+
+        function startAutoRotate() {
+          stopAutoRotate();
+          autoTimer = setInterval(() => {
+            if (userInteracted) return;
+            currentIndex = (currentIndex + 1) % tabIds.length;
+            activateTab(currentIndex);
+          }, 5000);
+        }
+
+        function stopAutoRotate() {
+          if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+        }
+
+        tabs.forEach((tab, i) => {
+          tab.addEventListener('click', function() {
+            userInteracted = true;
+            stopAutoRotate();
+            currentIndex = i;
+            const panelId = this.getAttribute('data-panel');
+            tabs.forEach(t => t.classList.remove('active'));
+            Object.values(panels).forEach(p => { if (p) p.classList.remove('active'); });
+            this.classList.add('active');
+            const target = panels[panelId];
+            if (target) target.classList.add('active');
+          });
+        });
+
+        // 当用户鼠标离开文件夹区域后，如果之前从未点击过，继续轮播
+        // 但用户要求 "一旦点击了就停留在那段经历不动"，所以只要点击过就不再轮播
+        // 开始自动轮播
+        startAutoRotate();
+
+        // 如果用户从未点击，离开页面再回来也不重置
+        // 当用户手动切换标签时标记 userInteracted = true
+      })();
+
+      // ============================================================
+      //  Sparkles
+      // ============================================================
+      document.addEventListener('click', e => {
+        const emojis = ['✦','♡','·','☆','→','*'];
+        for (let i = 0; i < 6; i++) {
+          const el = document.createElement('div');
+          el.className = 'sparkle';
+          el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          el.style.left = e.clientX + 'px';
+          el.style.top  = e.clientY + 'px';
+          const angle = Math.random() * Math.PI * 2;
+          const dist  = 20 + Math.random() * 45;
+          el.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+          el.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 800);
+        }
+      });
+
+      // ============================================================
+      //  Nav scroll
+      // ============================================================
+      const nav = document.getElementById('navbar');
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-links a');
+
+      function onScroll() {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+        let current = '';
+        const scrollY = window.scrollY + 120;
+        sections.forEach(s => {
+          if (s.offsetTop <= scrollY && s.offsetTop + s.offsetHeight > scrollY) current = s.id;
+        });
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href').slice(1) === current);
+        });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // ============================================================
+      //  Reveal
+      // ============================================================
+      const revealEls = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      revealEls.forEach(el => observer.observe(el));
+
+      // ============================================================
+      //  Mobile nav
+      // ============================================================
+      const toggle = document.getElementById('navToggle');
+      const navLinkContainer = document.getElementById('navLinks');
+      toggle.addEventListener('click', () => navLinkContainer.classList.toggle('open'));
+      navLinkContainer.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => navLinkContainer.classList.remove('open'));
+      });
+
+      // ============================================================
+      //  Click-to-copy for contact items
+      // ============================================================
+      (function() {
+        const toast = document.getElementById('copyToast');
+        document.querySelectorAll('[data-copy]').forEach(el => {
+          el.addEventListener('click', function(e) {
+            const text = this.getAttribute('data-copy');
+            if (!text) return;
+            // 复制到剪贴板
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).catch(() => {});
+            } else {
+              // fallback
+              const ta = document.createElement('textarea');
+              ta.value = text;
+              ta.style.position = 'fixed'; ta.style.opacity = '0';
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+            }
+            // 显示 toast
+            toast.classList.add('show');
+            clearTimeout(this._toastTimer);
+            this._toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+          });
+        });
+      })();
+
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
