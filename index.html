@@ -73,7 +73,7 @@
       font-style: italic;
       color: var(--accent);
     }
-    .nav-links { display: flex; gap: 2px; list-style: none; }
+    .nav-links { display: flex; gap: 2px; list-style: none; align-items: center; }
     .nav-links a {
       display: block; padding: 6px 18px;
       border-radius: 100px;
@@ -83,6 +83,35 @@
     }
     .nav-links a:hover { background: var(--accent-pale); color: var(--text); }
     .nav-links a.active { background: var(--accent-soft); color: var(--text); }
+
+    /* —— 语言切换按钮 —— */
+    .lang-toggle {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 12px; margin-left: 8px;
+      border-radius: 100px;
+      background: var(--bg-warm);
+      border: 1px solid rgba(61,54,64,0.08);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+      user-select: none;
+    }
+    .lang-toggle:hover {
+      background: var(--accent-pale);
+      border-color: var(--accent-soft);
+      color: var(--text);
+    }
+    .lang-toggle .lang-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 0.3s;
+    }
+    .lang-toggle.en .lang-dot { transform: translateX(8px); background: var(--green-soft); }
 
     .nav-toggle {
       display: none; flex-direction: column; gap: 4px;
@@ -419,7 +448,6 @@
       color: var(--text-light);
       margin-top: 4px;
     }
-    .folder-panel-header .meta .sep { margin: 0 8px; color: var(--text-muted); }
 
     .folder-content { margin-bottom: 20px; }
     .folder-content .cat-label {
@@ -657,10 +685,11 @@
       <a href="#hero" class="nav-logo">Li, Anqi</a>
       <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#folders">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about" data-i18n="nav_about">About</a></li>
+        <li><a href="#folders" data-i18n="nav_exp">Experience</a></li>
+        <li><a href="#projects" data-i18n="nav_proj">Projects</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+        <li><button class="lang-toggle" id="langToggle"><span class="lang-dot"></span> EN</button></li>
       </ul>
     </div>
   </nav>
@@ -677,22 +706,22 @@
     <div class="bubble bubble-5"></div>
     <div class="bubble bubble-6"></div>
     <div class="hero-content">
-      <div class="hero-greeting">✦ Product Marketing · AI PM</div>
+      <div class="hero-greeting" data-i18n="hero_greeting">✦ Product Marketing · AI PM</div>
       <h1 class="hero-name">
         <span class="gradient-text">李安琪</span>
       </h1>
       <div class="hero-badge">
         <span class="tooltip-trigger">
-          📍 南京
-          <span class="tooltip-box">对于 base 地的选择可以商量</span>
+          <span data-i18n="hero_loc">📍 南京</span>
+          <span class="tooltip-box" data-i18n="hero_loc_tip">对于 base 地的选择可以商量</span>
         </span>
         <span class="tooltip-trigger">
-          🌏 中文·한국어·English
-          <span class="tooltip-box">韩语 TOPIK 6 级 · 英语雅思 7.5<br/>中韩英三语均能作为工作语言熟练使用</span>
+          <span data-i18n="hero_lang">🌏 中文·한국어·English</span>
+          <span class="tooltip-box" data-i18n="hero_lang_tip">韩语 TOPIK 6 级 · 英语雅思 7.5<br/>中韩英三语均能作为工作语言熟练使用</span>
         </span>
         <span class="tooltip-trigger">
-          🎓 南京大学 · 首尔大学
-          <span class="tooltip-box">南京大学 · 朝鲜语（辅修新传）<br/>首尔大学 · Communication（交换）</span>
+          <span data-i18n="hero_edu">🎓 南京大学 · 首尔大学</span>
+          <span class="tooltip-box" data-i18n="hero_edu_tip">南京大学 · 朝鲜语（辅修新传）<br/>首尔大学 · Communication（交换）</span>
         </span>
       </div>
       </div>
@@ -705,14 +734,14 @@
        ============================================================ -->
   <section id="about">
     <div class="container">
-      <div class="section-label">About</div>
-      <h2 class="section-title">Hi, I'm <em>Li Anqi</em>.</h2>
+      <div class="section-label" data-i18n="about_label">About</div>
+      <h2 class="section-title" data-i18n="about_title">Hi, I'm <em>Li Anqi</em>.</h2>
       <div class="about-grid">
         <div class="about-text reveal">
-          <p><span class="hl">📱 从业背景</span> 拥有三星、希音、小米生态链等头部科技企业服务背景，覆盖消费电子、跨境电商、智能硬件三大赛道，沉淀从亚太本土运营到全球化产品营销的多维经验。</p>
-          <p><span class="hl">📈 营销运营</span>深耕海外社媒与 KOL 多渠道运营及产品功能 GTM 全流程策划，独立从 0 到 1 搭建内部 Newsletter 宣传矩阵；以社区共鸣传播 + 一线业务赋能为抓手，有效拉动产品曝光与转化增长。</p>
-          <p><span class="hl">🤖 产品管理</span> 具备独立负责 AI 功能全生命周期管理经验，融合 VOC 收集、竞品对标与数据复盘，推动使用率与满意度持续提升。</p>
-          <p><span class="hl">💡 个人特质</span> 中韩英三语流利，思维灵活、善于跨部门协作，对结果高度负责。</p>
+          <p><span class="hl" data-i18n="about_h1">📱 从业背景</span> <span data-i18n="about_p1">拥有三星、希音、小米生态链等头部科技企业服务背景，覆盖消费电子、跨境电商、智能硬件三大赛道，沉淀从亚太本土运营到全球化产品营销的多维经验。</span></p>
+          <p><span class="hl" data-i18n="about_h2">📈 营销运营</span> <span data-i18n="about_p2">深耕海外社媒与 KOL 多渠道运营及产品功能 GTM 全流程策划，独立从 0 到 1 搭建内部 Newsletter 宣传矩阵；以社区共鸣传播 + 一线业务赋能为抓手，有效拉动产品曝光与转化增长。</span></p>
+          <p><span class="hl" data-i18n="about_h3">🤖 产品管理</span> <span data-i18n="about_p3">具备独立负责 AI 功能全生命周期管理经验，融合 VOC 收集、竞品对标与数据复盘，推动使用率与满意度持续提升。</span></p>
+          <p><span class="hl" data-i18n="about_h4">💡 个人特质</span> <span data-i18n="about_p4">中韩英三语流利，思维灵活、善于跨部门协作，对结果高度负责。</span></p>
         </div>
         <div class="about-photo reveal">
           <div class="photo-frame">
@@ -731,8 +760,8 @@
        ============================================================ -->
   <section id="folders">
     <div class="container">
-      <div class="section-label">Experience</div>
-      <h2 class="section-title">Where I've <em>worked</em>.</h2>
+      <div class="section-label" data-i18n="exp_label">Experience</div>
+      <h2 class="section-title" data-i18n="exp_title">Where I've <em>worked</em>.</h2>
 
       <div class="folder-container reveal">
         <!-- Tab bar -->
@@ -748,35 +777,35 @@
           <!-- Samsung -->
           <div class="folder-panel active" id="panel-samsung" role="tabpanel">
             <div class="folder-panel-header">
-              <h3>三星（中国）投资有限公司</h3>
-              <div class="meta">产品营销 <span class="sep">·</span> 2025.07 — 至今</div>
+              <h3 data-i18n="f1_company">三星（中国）投资有限公司</h3>
+              <div class="meta" data-i18n="f1_meta">产品营销 · 2025.07 — 至今</div>
             </div>
             <div class="folder-content">
-              <span class="cat-label">📣 营销运营</span>
+              <span class="cat-label" data-i18n="f1_cat1">📣 营销运营</span>
               <ul>
-                <li><strong>上市策划：</strong>整合总部策略与竞品对标，主导 W26 / S26 / A57 等机型软件功能 GTM 计划制定，上市节点 100% 达成。</li>
-                <li><strong>内容造势：</strong>从 0 到 1 搭建社内 Newsletter 体系，独立设计模板与制作策略，打通跨部门信息协同链路。</li>
-                <li><strong>社区共振：</strong>负责 Flip7 / Fold7 / S26 三星内部社区运营，输出超高质量文案，提升产品口碑与传播度。</li>
-                <li><strong>赋能一线：</strong>搭建产品功能培训体系，主讲 3 场 GoodLock 培训会，覆盖超 200 名前线员工，考核通过率提升超 40%。</li>
+                <li data-i18n="f1_l1"><strong>上市策划：</strong>整合总部策略与竞品对标，主导 W26 / S26 / A57 等机型软件功能 GTM 计划制定，上市节点 100% 达成。</li>
+                <li data-i18n="f1_l2"><strong>内容造势：</strong>从 0 到 1 搭建社内 Newsletter 体系，独立设计模板与制作策略，打通跨部门信息协同链路。</li>
+                <li data-i18n="f1_l3"><strong>社区共振：</strong>负责 Flip7 / Fold7 / S26 三星内部社区运营，输出超高质量文案，提升产品口碑与传播度。</li>
+                <li data-i18n="f1_l4"><strong>赋能一线：</strong>搭建产品功能培训体系，主讲 3 场 GoodLock 培训会，覆盖超 200 名前线员工，考核通过率提升超 40%。</li>
               </ul>
-              <span class="cat-label">🤖 产品管理</span>
+              <span class="cat-label" data-i18n="f1_cat2">🤖 产品管理</span>
               <ul>
-                <li><strong>竞品对标：</strong>主导 GoodLock 全功能、智能文案帮写等竞品分析，输出完整报告与优化方案。</li>
-                <li><strong>AI 功能策划运营：</strong>独立负责「智能文案帮写」全流程，用户满意度超 90%。</li>
-                <li><strong>工具提效：</strong>推动 AI 工具合规落地，调研与方案输出周期缩短超 30%，效率提升超 40%。</li>
+                <li data-i18n="f1_l5"><strong>竞品对标：</strong>主导 GoodLock 全功能、智能文案帮写等竞品分析，输出完整报告与优化方案。</li>
+                <li data-i18n="f1_l6"><strong>AI 功能策划运营：</strong>独立负责「智能文案帮写」全流程，用户满意度超 90%。</li>
+                <li data-i18n="f1_l7"><strong>工具提效：</strong>推动 AI 工具合规落地，调研与方案输出周期缩短超 30%，效率提升超 40%。</li>
               </ul>
             </div>
             <div class="folder-skills">
-              <span class="folder-skills-label">core skills</span>
+              <span class="folder-skills-label" data-i18n="skills_label">core skills</span>
               <div class="folder-skills-tags">
-                <span>GTM 全流程策划</span>
-                <span>竞品分析</span>
-                <span>AI 功能全生命周期</span>
-                <span>内容营销</span>
-                <span>社区运营</span>
-                <span>FRD 撰写</span>
-                <span>培训赋能</span>
-                <span>AI 工具落地</span>
+                <span data-i18n="f1s1">GTM 全流程策划</span>
+                <span data-i18n="f1s2">竞品分析</span>
+                <span data-i18n="f1s3">AI 功能全生命周期</span>
+                <span data-i18n="f1s4">内容营销</span>
+                <span data-i18n="f1s5">社区运营</span>
+                <span data-i18n="f1s6">FRD 撰写</span>
+                <span data-i18n="f1s7">培训赋能</span>
+                <span data-i18n="f1s8">AI 工具落地</span>
               </div>
             </div>
           </div>
@@ -784,25 +813,25 @@
           <!-- CUKTECH -->
           <div class="folder-panel" id="panel-cuktech" role="tabpanel">
             <div class="folder-panel-header">
-              <h3>南京酷科电子科技有限公司</h3>
-              <div class="meta">韩国市场运营（实习）<span class="sep">·</span> 2024.11 — 2025.05</div>
+              <h3 data-i18n="f2_company">南京酷科电子科技有限公司</h3>
+              <div class="meta" data-i18n="f2_meta">韩国市场运营（实习）· 2024.11 — 2025.05</div>
             </div>
             <div class="folder-content">
               <ul>
-                <li><strong>社群裂变：</strong>策划韩国 Ins 账号，从 0 到 1 建设 Facebook 和 Kakao 社群，Ins 三个月涨粉 500+。</li>
-                <li><strong>爆款打造：</strong>打造 YouTube 和 TikTok 爆款视频，当周转化率提升超 100%，吸引知名 agency 主动合作。</li>
-                <li><strong>运营支持：</strong>负责充电宝产品 brief 和详情页韩文校对，确保本地化内容准确传达。</li>
+                <li data-i18n="f2_l1"><strong>社群裂变：</strong>策划韩国 Ins 账号，从 0 到 1 建设 Facebook 和 Kakao 社群，Ins 三个月涨粉 500+。</li>
+                <li data-i18n="f2_l2"><strong>爆款打造：</strong>打造 YouTube 和 TikTok 爆款视频，当周转化率提升超 100%，吸引知名 agency 主动合作。</li>
+                <li data-i18n="f2_l3"><strong>运营支持：</strong>负责充电宝产品 brief 和详情页韩文校对，确保本地化内容准确传达。</li>
               </ul>
             </div>
             <div class="folder-skills">
-              <span class="folder-skills-label">core skills</span>
+              <span class="folder-skills-label" data-i18n="skills_label">core skills</span>
               <div class="folder-skills-tags">
-                <span>社媒运营</span>
-                <span>KOL 营销</span>
-                <span>社群裂变</span>
-                <span>本地化内容</span>
-                <span>品牌策略</span>
-                <span>한국어 运营</span>
+                <span data-i18n="f2s1">社媒运营</span>
+                <span data-i18n="f2s2">KOL 营销</span>
+                <span data-i18n="f2s3">社群裂变</span>
+                <span data-i18n="f2s4">本地化内容</span>
+                <span data-i18n="f2s5">品牌策略</span>
+                <span data-i18n="f2s6">한국어 运营</span>
               </div>
             </div>
           </div>
@@ -810,23 +839,23 @@
           <!-- SHEIN -->
           <div class="folder-panel" id="panel-shein" role="tabpanel">
             <div class="folder-panel-header">
-              <h3>南京希音电子商务有限公司</h3>
-              <div class="meta">频道运营（实习）<span class="sep">·</span> 2024.01 — 2024.04</div>
+              <h3 data-i18n="f3_company">南京希音电子商务有限公司</h3>
+              <div class="meta" data-i18n="f3_meta">频道运营（实习）· 2024.01 — 2024.04</div>
             </div>
             <div class="folder-content">
               <ul>
-                <li><strong>活动策划：</strong>策划复工季等主题营销活动，覆盖西葡英等多语言，板块点击率提升超 20%，销量环比增长超 50%。</li>
-                <li><strong>数据分析：</strong>监控本土购物平台，AB 测试归因及竞品分析，提升留存与复购率。</li>
+                <li data-i18n="f3_l1"><strong>活动策划：</strong>策划复工季等主题营销活动，覆盖西葡英等多语言，板块点击率提升超 20%，销量环比增长超 50%。</li>
+                <li data-i18n="f3_l2"><strong>数据分析：</strong>监控本土购物平台，AB 测试归因及竞品分析，提升留存与复购率。</li>
               </ul>
             </div>
             <div class="folder-skills">
-              <span class="folder-skills-label">core skills</span>
+              <span class="folder-skills-label" data-i18n="skills_label">core skills</span>
               <div class="folder-skills-tags">
-                <span>活动策划</span>
-                <span>数据分析</span>
-                <span>AB 测试</span>
-                <span>用户研究</span>
-                <span>多语言运营</span>
+                <span data-i18n="f3s1">活动策划</span>
+                <span data-i18n="f3s2">数据分析</span>
+                <span data-i18n="f3s3">AB 测试</span>
+                <span data-i18n="f3s4">用户研究</span>
+                <span data-i18n="f3s5">多语言运营</span>
               </div>
             </div>
           </div>
@@ -841,28 +870,28 @@
        ============================================================ -->
   <section id="projects">
     <div class="container">
-      <div class="section-label">Projects</div>
-      <h2 class="section-title">Things I've <em>built</em>.</h2>
+      <div class="section-label" data-i18n="proj_label">Projects</div>
+      <h2 class="section-title" data-i18n="proj_title">Things I've <em>built</em>.</h2>
       <div class="projects-grid">
         <div class="project-card reveal">
-          <div class="project-tags"><span class="project-tag">AI产品</span><span class="project-tag g">产品策划</span><span class="project-tag">产品管理</span><span class="project-tag g">用户反馈</span><span class="project-tag">数据分析</span></div>
-          <h3>智能文案帮写 AI 功能</h3>
-          <p>独立负责 AI 功能全流程：VOC 收集 → 竞品对标 → FRD 撰写 → 研发对接 → 数据复盘。用户满意度超 90%，团队分析周期缩短超 30%。</p>
+          <div class="project-tags"><span class="project-tag" data-i18n="pj1t1">AI产品</span><span class="project-tag g" data-i18n="pj1t2">产品策划</span><span class="project-tag" data-i18n="pj1t3">产品管理</span><span class="project-tag g" data-i18n="pj1t4">用户反馈</span><span class="project-tag" data-i18n="pj1t5">数据分析</span></div>
+          <h3 data-i18n="pj1_title">智能文案帮写 AI 功能</h3>
+          <p data-i18n="pj1_desc">独立负责 AI 功能全流程：VOC 收集 → 竞品对标 → FRD 撰写 → 研发对接 → 数据复盘。用户满意度超 90%，团队分析周期缩短超 30%。</p>
         </div>
         <div class="project-card reveal">
-          <div class="project-tags"><span class="project-tag">竞品分析</span><span class="project-tag g">部门培训</span><span class="project-tag">产品营销赋能</span></div>
-          <h3>GoodLock 全功能体验优化</h3>
-          <p>主导 GoodLock 全线功能及头部竞品对标，完成功能差异分析与体验优化方案，为产品竞争力提升提供决策支撑。</p>
+          <div class="project-tags"><span class="project-tag" data-i18n="pj2t1">竞品分析</span><span class="project-tag g" data-i18n="pj2t2">部门培训</span><span class="project-tag" data-i18n="pj2t3">产品营销赋能</span></div>
+          <h3 data-i18n="pj2_title">GoodLock 全功能体验优化</h3>
+          <p data-i18n="pj2_desc">主导 GoodLock 全线功能及头部竞品对标，完成功能差异分析与体验优化方案，为产品竞争力提升提供决策支撑。</p>
         </div>
         <div class="project-card reveal">
-          <div class="project-tags"><span class="project-tag">内容体系</span><span class="project-tag g">0→1 搭建</span><span class="project-tag">独立设计</span><span class="project-tag g">产品营销策略</span></div>
-          <h3>社内 Newsletter 内容体系</h3>
-          <p>从 0 到 1 搭建三星内部 Newsletter 体系，独立设计模板与制作策略，以高频内容同步产品动态，打通跨部门信息协同。</p>
+          <div class="project-tags"><span class="project-tag" data-i18n="pj3t1">内容体系</span><span class="project-tag g" data-i18n="pj3t2">0→1 搭建</span><span class="project-tag" data-i18n="pj3t3">独立设计</span><span class="project-tag g" data-i18n="pj3t4">产品营销策略</span></div>
+          <h3 data-i18n="pj3_title">社内 Newsletter 内容体系</h3>
+          <p data-i18n="pj3_desc">从 0 到 1 搭建三星内部 Newsletter 体系，独立设计模板与制作策略，以高频内容同步产品动态，打通跨部门信息协同。</p>
         </div>
         <div class="project-card reveal">
-          <div class="project-tags"><span class="project-tag">海外社媒运营</span><span class="project-tag g">私域社群运营</span><span class="project-tag">海外市场运营</span></div>
-          <h3>韩国本地社群 0→1</h3>
-          <p>策划韩国 Ins 内容 + 建设 Facebook / Kakao 社群，三个月涨粉 500+，打造爆款视频，转化率提升超 100%。</p>
+          <div class="project-tags"><span class="project-tag" data-i18n="pj4t1">海外社媒运营</span><span class="project-tag g" data-i18n="pj4t2">私域社群运营</span><span class="project-tag" data-i18n="pj4t3">海外市场运营</span></div>
+          <h3 data-i18n="pj4_title">韩国本地社群 0→1</h3>
+          <p data-i18n="pj4_desc">策划韩国 Ins 内容 + 建设 Facebook / Kakao 社群，三个月涨粉 500+，打造爆款视频，转化率提升超 100%。</p>
         </div>
       </div>
     </div>
@@ -873,44 +902,290 @@
        ============================================================ -->
   <section id="contact">
     <div class="container">
-      <div class="section-label">Contact</div>
-      <h2 class="section-title">Let's <em>connect</em>.</h2>
+      <div class="section-label" data-i18n="contact_label">Contact</div>
+      <h2 class="section-title" data-i18n="contact_title">Let's <em>connect</em>.</h2>
       <div class="contact-grid">
         <div class="contact-list reveal">
           <a href="tel:13072568876" class="contact-item" data-copy="130 7256 8876">
             <div class="contact-icon">📞</div>
-            <div><div class="contact-clabel">Phone</div><div class="contact-cvalue">130 7256 8876</div></div>
+            <div><div class="contact-clabel" data-i18n="c_phone">Phone</div><div class="contact-cvalue">130 7256 8876</div></div>
           </a>
           <a href="mailto:569251075@qq.com" class="contact-item" data-copy="569251075@qq.com">
             <div class="contact-icon g">✉️</div>
-            <div><div class="contact-clabel">Email</div><div class="contact-cvalue">569251075@qq.com</div></div>
+            <div><div class="contact-clabel" data-i18n="c_email">Email</div><div class="contact-cvalue">569251075@qq.com</div></div>
           </a>
           <div class="contact-item">
             <div class="contact-icon b">📍</div>
-            <div><div class="contact-clabel">Location</div><div class="contact-cvalue">南京</div></div>
+            <div><div class="contact-clabel" data-i18n="c_loc">Location</div><div class="contact-cvalue" data-i18n="c_loc_val">南京</div></div>
           </div>
         </div>
         <div class="contact-note reveal">
-          <p>📬 如果对我的经历或项目感兴趣，欢迎随时联系我！</p>
-          <p>无论是工作机会、项目合作，还是只是聊聊产品与市场，我都很乐意交流。</p>
-          <p>한국어와 영어로도 자유롭게 연락 주세요.<br/>Feel free to reach out in Korean or English as well.</p>
-          <div class="thanks">✨ Thanks for stopping by ✨</div>
+          <p data-i18n="c_note1">📬 如果对我的经历或项目感兴趣，欢迎随时联系我！</p>
+          <p data-i18n="c_note2">无论是工作机会、项目合作，还是只是聊聊产品与市场，我都很乐意交流。</p>
+          <p data-i18n="c_note3">한국어와 영어로도 자유롭게 연락 주세요.<br/>Feel free to reach out in Korean or English as well.</p>
+          <div class="thanks" data-i18n="c_thanks">✨ Thanks for stopping by ✨</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Copy toast -->
-  <div class="copy-toast" id="copyToast">✓ 已复制到剪贴板</div>
+  <div class="copy-toast" id="copyToast" data-i18n="copy_toast">✓ 已复制到剪贴板</div>
 
   <footer>
     <p style="letter-spacing:4px;">✦ ♡ ✦</p>
-    <p style="margin-top:8px;">© 2026 李安琪</p>
+    <p style="margin-top:8px;" data-i18n="footer_copy">© 2026 李安琪</p>
   </footer>
 
   <script>
     (function() {
       'use strict';
+
+      // ============================================================
+      //  🌐 中英翻译数据
+      // ============================================================
+      const i18n = {
+        zh: {
+          nav_about: 'About',
+          nav_exp: 'Experience',
+          nav_proj: 'Projects',
+          nav_contact: 'Contact',
+          hero_greeting: '✦ Product Marketing · AI PM',
+          hero_loc: '📍 南京',
+          hero_loc_tip: '对于 base 地的选择可以商量',
+          hero_lang: '🌏 中文·한국어·English',
+          hero_lang_tip: '韩语 TOPIK 6 级 · 英语雅思 7.5<br/>中韩英三语均能作为工作语言熟练使用',
+          hero_edu: '🎓 南京大学 · 首尔大学',
+          hero_edu_tip: '南京大学 · 朝鲜语（辅修新传）<br/>首尔大学 · Communication（交换）',
+          about_label: 'About',
+          about_title: "Hi, I'm <em>Li Anqi</em>.",
+          about_h1: '📱 从业背景',
+          about_p1: '拥有三星、希音、小米生态链等头部科技企业服务背景，覆盖消费电子、跨境电商、智能硬件三大赛道，沉淀从亚太本土运营到全球化产品营销的多维经验。',
+          about_h2: '📈 营销运营',
+          about_p2: '深耕海外社媒与 KOL 多渠道运营及产品功能 GTM 全流程策划，独立从 0 到 1 搭建内部 Newsletter 宣传矩阵；以社区共鸣传播 + 一线业务赋能为抓手，有效拉动产品曝光与转化增长。',
+          about_h3: '🤖 产品管理',
+          about_p3: '具备独立负责 AI 功能全生命周期管理经验，融合 VOC 收集、竞品对标与数据复盘，推动使用率与满意度持续提升。',
+          about_h4: '💡 个人特质',
+          about_p4: '中韩英三语流利，思维灵活、善于跨部门协作，对结果高度负责。',
+          exp_label: 'Experience',
+          exp_title: "Where I've <em>worked</em>.",
+          f1_company: '三星（中国）投资有限公司',
+          f1_meta: '产品营销 · 2025.07 — 至今',
+          f1_cat1: '📣 营销运营',
+          f1_l1: '<strong>上市策划：</strong>整合总部策略与竞品对标，主导 W26 / S26 / A57 等机型软件功能 GTM 计划制定，上市节点 100% 达成。',
+          f1_l2: '<strong>内容造势：</strong>从 0 到 1 搭建社内 Newsletter 体系，独立设计模板与制作策略，打通跨部门信息协同链路。',
+          f1_l3: '<strong>社区共振：</strong>负责 Flip7 / Fold7 / S26 三星内部社区运营，输出超高质量文案，提升产品口碑与传播度。',
+          f1_l4: '<strong>赋能一线：</strong>搭建产品功能培训体系，主讲 3 场 GoodLock 培训会，覆盖超 200 名前线员工，考核通过率提升超 40%。',
+          f1_cat2: '🤖 产品管理',
+          f1_l5: '<strong>竞品对标：</strong>主导 GoodLock 全功能、智能文案帮写等竞品分析，输出完整报告与优化方案。',
+          f1_l6: '<strong>AI 功能策划运营：</strong>独立负责「智能文案帮写」全流程，用户满意度超 90%。',
+          f1_l7: '<strong>工具提效：</strong>推动 AI 工具合规落地，调研与方案输出周期缩短超 30%，效率提升超 40%。',
+          skills_label: 'core skills',
+          f1s1: 'GTM 全流程策划',
+          f1s2: '竞品分析',
+          f1s3: 'AI 功能全生命周期',
+          f1s4: '内容营销',
+          f1s5: '社区运营',
+          f1s6: 'FRD 撰写',
+          f1s7: '培训赋能',
+          f1s8: 'AI 工具落地',
+          f2_company: '南京酷科电子科技有限公司',
+          f2_meta: '韩国市场运营（实习）· 2024.11 — 2025.05',
+          f2_l1: '<strong>社群裂变：</strong>策划韩国 Ins 账号，从 0 到 1 建设 Facebook 和 Kakao 社群，Ins 三个月涨粉 500+。',
+          f2_l2: '<strong>爆款打造：</strong>打造 YouTube 和 TikTok 爆款视频，当周转化率提升超 100%，吸引知名 agency 主动合作。',
+          f2_l3: '<strong>运营支持：</strong>负责充电宝产品 brief 和详情页韩文校对，确保本地化内容准确传达。',
+          f2s1: '社媒运营',
+          f2s2: 'KOL 营销',
+          f2s3: '社群裂变',
+          f2s4: '本地化内容',
+          f2s5: '品牌策略',
+          f2s6: '한국어 运营',
+          f3_company: '南京希音电子商务有限公司',
+          f3_meta: '频道运营（实习）· 2024.01 — 2024.04',
+          f3_l1: '<strong>活动策划：</strong>策划复工季等主题营销活动，覆盖西葡英等多语言，板块点击率提升超 20%，销量环比增长超 50%。',
+          f3_l2: '<strong>数据分析：</strong>监控本土购物平台，AB 测试归因及竞品分析，提升留存与复购率。',
+          f3s1: '活动策划',
+          f3s2: '数据分析',
+          f3s3: 'AB 测试',
+          f3s4: '用户研究',
+          f3s5: '多语言运营',
+          proj_label: 'Projects',
+          proj_title: "Things I've <em>built</em>.",
+          pj1t1: 'AI产品',
+          pj1t2: '产品策划',
+          pj1t3: '产品管理',
+          pj1t4: '用户反馈',
+          pj1t5: '数据分析',
+          pj1_title: '智能文案帮写 AI 功能',
+          pj1_desc: '独立负责 AI 功能全流程：VOC 收集 → 竞品对标 → FRD 撰写 → 研发对接 → 数据复盘。用户满意度超 90%，团队分析周期缩短超 30%。',
+          pj2t1: '竞品分析',
+          pj2t2: '部门培训',
+          pj2t3: '产品营销赋能',
+          pj2_title: 'GoodLock 全功能体验优化',
+          pj2_desc: '主导 GoodLock 全线功能及头部竞品对标，完成功能差异分析与体验优化方案，为产品竞争力提升提供决策支撑。',
+          pj3t1: '内容体系',
+          pj3t2: '0→1 搭建',
+          pj3t3: '独立设计',
+          pj3t4: '产品营销策略',
+          pj3_title: '社内 Newsletter 内容体系',
+          pj3_desc: '从 0 到 1 搭建三星内部 Newsletter 体系，独立设计模板与制作策略，以高频内容同步产品动态，打通跨部门信息协同。',
+          pj4t1: '海外社媒运营',
+          pj4t2: '私域社群运营',
+          pj4t3: '海外市场运营',
+          pj4_title: '韩国本地社群 0→1',
+          pj4_desc: '策划韩国 Ins 内容 + 建设 Facebook / Kakao 社群，三个月涨粉 500+，打造爆款视频，转化率提升超 100%。',
+          contact_label: 'Contact',
+          contact_title: "Let's <em>connect</em>.",
+          c_phone: 'Phone',
+          c_email: 'Email',
+          c_loc: 'Location',
+          c_loc_val: '南京',
+          c_note1: '📬 如果对我的经历或项目感兴趣，欢迎随时联系我！',
+          c_note2: '无论是工作机会、项目合作，还是只是聊聊产品与市场，我都很乐意交流。',
+          c_note3: '한국어와 영어로도 자유롭게 연락 주세요.<br/>Feel free to reach out in Korean or English as well.',
+          c_thanks: '✨ Thanks for stopping by ✨',
+          footer_copy: '© 2026 李安琪',
+          copy_toast: '✓ 已复制到剪贴板',
+        },
+        en: {
+          nav_about: 'About',
+          nav_exp: 'Experience',
+          nav_proj: 'Projects',
+          nav_contact: 'Contact',
+          hero_greeting: '✦ Product Marketing · AI PM',
+          hero_loc: '📍 Nanjing',
+          hero_loc_tip: 'Base location is negotiable.',
+          hero_lang: '🌏 中文·한국어·English',
+          hero_lang_tip: 'TOPIK 6 · IELTS 7.5<br/>Fluent in Chinese, Korean & English as working languages.',
+          hero_edu: '🎓 Nanjing Univ. · SNU',
+          hero_edu_tip: 'Nanjing University · Korean (Journalism minor)<br/>Seoul National University · Communication (exchange)',
+          about_label: 'About',
+          about_title: "Hi, I'm <em>Li Anqi</em>.",
+          about_h1: '📱 Background',
+          about_p1: 'Experience with Samsung, SHEIN, and Xiaomi ecosystem companies across consumer electronics, cross-border e-commerce, and smart hardware — from regional APAC operations to global product marketing.',
+          about_h2: '📈 Marketing & Ops',
+          about_p2: 'Deep expertise in overseas social media & KOL multi-channel operations, full GTM planning for product features, and building internal Newsletter systems from scratch. Driving product exposure and conversion growth through community resonance and field team enablement.',
+          about_h3: '🤖 Product Management',
+          about_p3: 'End-to-end AI feature lifecycle management combining VOC collection, competitive benchmarking, and data-driven iteration to boost adoption and satisfaction.',
+          about_h4: '💡 Personal',
+          about_p4: 'Trilingual in Chinese, Korean & English. Adaptable, cross-functional collaborator with strong execution and accountability.',
+          exp_label: 'Experience',
+          exp_title: "Where I've <em>worked</em>.",
+          f1_company: 'Samsung (China) Investment Co., Ltd.',
+          f1_meta: 'Product Marketing · 2025.07 — Present',
+          f1_cat1: '📣 Marketing Ops',
+          f1_l1: '<strong>GTM Planning:</strong> Led GTM strategy for W26 / S26 / A57 software features, consolidating HQ strategy with competitive insights. 100% on-time launch delivery.',
+          f1_l2: '<strong>Content Creation:</strong> Built an internal Newsletter system from scratch, designing templates and content strategy to align cross-department communication.',
+          f1_l3: '<strong>Community Resonance:</strong> Managed Samsung internal communities for Flip7 / Fold7 / S26, driving engagement and influencing sales and marketing teams.',
+          f1_l4: '<strong>Field Enablement:</strong> Built a product training system, delivered 3 GoodLock workshops covering 200+ frontline staff; assessment pass rate improved by 40%+.',
+          f1_cat2: '🤖 Product Management',
+          f1_l5: '<strong>Competitive Analysis:</strong> Led benchmarking for GoodLock features and AI Writing Assistant; delivered full reports and optimization plans.',
+          f1_l6: '<strong>AI Feature Management:</strong> Independently managed the AI Writing Assistant end-to-end; user satisfaction exceeded 90%.',
+          f1_l7: '<strong>Efficiency Tools:</strong> Drove AI tool compliance and deployment; research cycle shortened by 30%+, output efficiency improved by 40%+.',
+          skills_label: 'core skills',
+          f1s1: 'GTM Strategy',
+          f1s2: 'Competitive Analysis',
+          f1s3: 'AI Product Lifecycle',
+          f1s4: 'Content Marketing',
+          f1s5: 'Community Management',
+          f1s6: 'FRD Writing',
+          f1s7: 'Training & Enablement',
+          f1s8: 'AI Tool Deployment',
+          f2_company: 'CUKTECH (Nanjing Cuke Electronics)',
+          f2_meta: 'Korea Market Ops (Intern) · 2024.11 — 2025.05',
+          f2_l1: '<strong>Community Growth:</strong> Built Korean Ins/Facebook/Kakao communities from scratch; gained 500+ followers in 3 months.',
+          f2_l2: '<strong>Viral Marketing:</strong> Created YouTube & TikTok hit videos; weekly conversion rate jumped 100%+, attracting agency partnerships.',
+          f2_l3: '<strong>Localization Support:</strong> Reviewed Korean product briefs and detail pages for power bank products, ensuring accurate local messaging.',
+          f2s1: 'Social Media Ops',
+          f2s2: 'KOL Marketing',
+          f2s3: 'Community Growth',
+          f2s4: 'Localization',
+          f2s5: 'Brand Strategy',
+          f2s6: '한국어 Ops',
+          f3_company: 'SHEIN (Nanjing E-commerce)',
+          f3_meta: 'Channel Operations (Intern) · 2024.01 — 2024.04',
+          f3_l1: '<strong>Campaign Planning:</strong> Planned seasonal campaigns across Spanish, Portuguese & English markets; boosted click-through rate by 20%+, sales growth 50%+ MoM.',
+          f3_l2: '<strong>Data Analysis:</strong> Monitored local platforms, ran A/B tests, conducted competitive analysis to improve retention and repurchase rates.',
+          f3s1: 'Campaign Planning',
+          f3s2: 'Data Analysis',
+          f3s3: 'A/B Testing',
+          f3s4: 'User Research',
+          f3s5: 'Multi-language Ops',
+          proj_label: 'Projects',
+          proj_title: "Things I've <em>built</em>.",
+          pj1t1: 'AI Product',
+          pj1t2: 'Product Strategy',
+          pj1t3: 'Product Mgmt',
+          pj1t4: 'User Feedback',
+          pj1t5: 'Data Analysis',
+          pj1_title: 'AI Writing Assistant',
+          pj1_desc: 'End-to-end AI feature management: VOC collection → competitive benchmarking → FRD → dev handoff → data review. 90%+ user satisfaction, 30%+ shorter analysis cycles.',
+          pj2t1: 'Competitive Analysis',
+          pj2t2: 'Team Training',
+          pj2t3: 'Product Enablement',
+          pj2_title: 'GoodLock Full Feature Optimization',
+          pj2_desc: 'Led full competitive benchmarking for GoodLock features; delivered gap analysis and UX optimization plans to support product competitiveness.',
+          pj3t1: 'Content System',
+          pj3t2: '0→1 Build',
+          pj3t3: 'Independent Design',
+          pj3t4: 'Product Marketing',
+          pj3_title: 'Internal Newsletter System',
+          pj3_desc: 'Built Samsung\'s internal Newsletter system from scratch — independently designed templates and content strategy, aligning cross-department communication with high-frequency updates.',
+          pj4t1: 'Overseas Social Media',
+          pj4t2: 'Private Community',
+          pj4t3: 'Global Market Ops',
+          pj4_title: 'Korea Community 0→1',
+          pj4_desc: 'Managed Korean Instagram content + built Facebook/Kakao communities; 500+ followers in 3 months, viral video drove 100%+ conversion lift.',
+          contact_label: 'Contact',
+          contact_title: "Let's <em>connect</em>.",
+          c_phone: 'Phone',
+          c_email: 'Email',
+          c_loc: 'Location',
+          c_loc_val: 'Nanjing',
+          c_note1: '📬 Feel free to reach out if you\'re interested in my experience or projects!',
+          c_note2: 'Whether it\'s a job opportunity, project collaboration, or just a chat about products & marketing — I\'d love to connect.',
+          c_note3: '한국어와 영어로도 자유롭게 연락 주세요.<br/>Feel free to reach out in Korean or English as well.',
+          c_thanks: '✨ Thanks for stopping by ✨',
+          footer_copy: '© 2026 Li Anqi',
+          copy_toast: '✓ Copied to clipboard',
+        }
+      };
+
+      // ============================================================
+      //  🌐 语言切换
+      // ============================================================
+      let currentLang = localStorage.getItem('lang') || 'zh';
+      const langBtn = document.getElementById('langToggle');
+
+      function applyLang(lang) {
+        const data = i18n[lang];
+        if (!data) return;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (data[key] !== undefined) {
+            // 对于包含 HTML 的字段（如 tooltip、list items），用 innerHTML
+            // 对于纯文本，用 textContent
+            if (data[key].indexOf('<') !== -1) {
+              el.innerHTML = data[key];
+            } else {
+              el.textContent = data[key];
+            }
+          }
+        });
+        // 更新按钮样式
+        langBtn.classList.toggle('en', lang === 'en');
+        langBtn.innerHTML = '<span class="lang-dot"></span> ' + (lang === 'en' ? '中' : 'EN');
+        currentLang = lang;
+        localStorage.setItem('lang', lang);
+      }
+
+      langBtn.addEventListener('click', function() {
+        const next = currentLang === 'zh' ? 'en' : 'zh';
+        applyLang(next);
+      });
+
+      // 应用初始语言
+      applyLang(currentLang);
 
       // ============================================================
       //  Folder tabs — 自动轮播 5s，点击后暂停
