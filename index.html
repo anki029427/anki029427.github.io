@@ -84,34 +84,56 @@
     .nav-links a:hover { background: var(--accent-pale); color: var(--text); }
     .nav-links a.active { background: var(--accent-soft); color: var(--text); }
 
-    /* —— 语言切换按钮 —— */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* —— 语言切换按钮 中/EN —— */
     .lang-toggle {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 4px 12px; margin-left: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      padding: 4px 10px;
       border-radius: 100px;
-      background: var(--bg-warm);
-      border: 1px solid rgba(61,54,64,0.08);
+      background: transparent;
+      border: 1.5px solid var(--text-muted);
       font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 1px;
-      color: var(--text-light);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
       cursor: pointer;
-      transition: background 0.25s, border-color 0.25s, color 0.25s;
+      transition: border-color 0.25s, background 0.25s;
       user-select: none;
+      line-height: 1;
     }
     .lang-toggle:hover {
+      border-color: var(--accent);
       background: var(--accent-pale);
-      border-color: var(--accent-soft);
+    }
+    .lang-toggle .lang-cn,
+    .lang-toggle .lang-en {
+      transition: color 0.25s, opacity 0.25s;
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+    .lang-toggle .lang-sep {
+      color: var(--text-muted);
+      opacity: 0.3;
+      font-size: 0.6rem;
+      margin: 0 1px;
+    }
+    .lang-toggle .lang-cn.active,
+    .lang-toggle .lang-en.active {
       color: var(--text);
+      opacity: 1;
+      font-weight: 600;
     }
-    .lang-toggle .lang-dot {
-      display: inline-block;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      transition: transform 0.3s;
+    .lang-toggle:hover .lang-cn.active,
+    .lang-toggle:hover .lang-en.active {
+      color: var(--accent);
     }
-    .lang-toggle.en .lang-dot { transform: translateX(8px); background: var(--green-soft); }
 
     .nav-toggle {
       display: none; flex-direction: column; gap: 4px;
@@ -683,14 +705,16 @@
   <nav id="navbar">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">Li, Anqi</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about" data-i18n="nav_about">About</a></li>
         <li><a href="#folders" data-i18n="nav_exp">Experience</a></li>
         <li><a href="#projects" data-i18n="nav_proj">Projects</a></li>
         <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
-        <li><button class="lang-toggle" id="langToggle"><span class="lang-dot"></span> EN</button></li>
       </ul>
+      <div class="nav-right">
+        <button class="lang-toggle" id="langToggle"><span class="lang-cn">中</span><span class="lang-sep"> / </span><span class="lang-en">EN</span></button>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
     </div>
   </nav>
 
@@ -1172,9 +1196,9 @@
             }
           }
         });
-        // 更新按钮样式
-        langBtn.classList.toggle('en', lang === 'en');
-        langBtn.innerHTML = '<span class="lang-dot"></span> ' + (lang === 'en' ? '中' : 'EN');
+        // 更新按钮高亮
+        langBtn.querySelector('.lang-cn').classList.toggle('active', lang === 'zh');
+        langBtn.querySelector('.lang-en').classList.toggle('active', lang === 'en');
         currentLang = lang;
         localStorage.setItem('lang', lang);
       }
